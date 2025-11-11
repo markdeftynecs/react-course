@@ -1,0 +1,66 @@
+{
+  "name": "treewarehouse",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "7.21.11",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/user-event": "^12.8.3",
+    "@types/jest": "^26.0.24",
+    "@types/node": "^20.14.8",
+    "@types/react": "^18.0.9",
+    "@types/react-dom": "^18.0.5",
+    "@vitejs/plugin-react-swc": "^3.7.0",
+    "node": "^25.1.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "typescript": "^4.4.4",
+    "vite": "^7.1.12",
+    "vite-plugin-svgr": "^4.2.0",
+    "vite-tsconfig-paths": "^4.3.2",
+    "web-vitals": "^1.1.2"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "serve": "vite preview",
+    "test": "vitest",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest",
+      "plugin:storybook/recommended"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^4.1.2",
+    "@storybook/addon-a11y": "^10.0.6",
+    "@storybook/addon-docs": "^10.0.6",
+    "@storybook/addon-vitest": "^10.0.6",
+    "@storybook/react-vite": "^10.0.6",
+    "@testing-library/react": "^16.3.0",
+    "eslint-plugin-storybook": "^10.0.6",
+    "jsdom": "^27.1.0",
+    "storybook": "^10.0.6",
+    "vitest": "^4.0.6",
+    "playwright": "^1.56.1",
+    "@vitest/browser-playwright": "4.0.6",
+    "@vitest/coverage-v8": "4.0.6"
+  }
+}
