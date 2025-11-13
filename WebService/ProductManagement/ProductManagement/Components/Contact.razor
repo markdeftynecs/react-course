@@ -1,0 +1,12 @@
+﻿@typeparam T
+@page "/Contact"
+@layout Shared.MinimalLayout
+For assistance with
+@siFormat(si)
+Available 9am to 5pm, Monday to Friday, Eastern time
+@code {
+    [Parameter]
+    public RenderFragment<T> siFormat { get; set; }
+    [Parameter]
+    public T si { get; set; }
+}

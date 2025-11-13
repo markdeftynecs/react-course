@@ -1,0 +1,35 @@
+﻿@using ProductManagement.Common
+<h4>Stored at Warehouses</h4>
+<table>
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>QoH</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Warehouse wh in parent.prod.Warehouses)
+        {
+            <tr>
+                <td><a href="/Manage/@wh.WarehouseId">@wh.WarehouseId</a></td>
+                <td>@wh.WarehouseName</td>
+                <td><input @bind="wh.Qoh" /></td>
+                <td><input type="button" @onclick="@(() => SetInventory(wh))" value="Update" /></td>
+            </tr>
+        }
+    </tbody>
+</table>
+@code {
+    [CascadingParameter]
+    public Products parent { get; set; }
+
+    [Parameter]
+    public Warehouse whparm { get; set; }
+
+    private void SetInventory(Warehouse wh)
+    {
+        parent.ReportInventoryChanged(wh);
+    }
+}

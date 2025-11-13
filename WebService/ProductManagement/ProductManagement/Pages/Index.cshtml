@@ -1,0 +1,41 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+    Layout = null;
+}
+<head>
+    <link href="~/css/site.css" rel="stylesheet" />
+    <base href="/" />
+</head>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+Products:
+<select id="productList">
+    <option value="--">Select a Product</option>
+    <option value="109">Widget</option>
+    <option value="423">Sprocket</option>
+    <option value="387">Doodad</option>
+</select>
+<script>
+    var component;
+    function AcceptReference(componentIn) {
+        component = componentIn;
+    }
+
+    function ProductChanged() {
+        let prodId = $("#productList").val();
+        component.invokeMethodAsync("ChangeProduct", prodId);
+    }
+    
+    $(function () {
+        $("#productList").change(ProductChanged);
+    });
+    
+    
+</script>
+<br/>
+<div class="text-center">
+    @(await Html.RenderComponentAsync<Components.App>(RenderMode.ServerPrerendered))
+</div>
+<script src="~/_framework/blazor.server.js"></script>

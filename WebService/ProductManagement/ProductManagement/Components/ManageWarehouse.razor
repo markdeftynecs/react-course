@@ -1,0 +1,84 @@
+﻿@page "/Manage/{wid}"
+@using ProductManagement.Common
+@using ProductManagement.Repository
+
+<h3>Manage Warehouse</h3>
+<EditForm EditContext="@econtext" OnSubmit="@UpdateWarehouse">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    Warehouse Id: @currentWarehouse.WarehouseId
+    <br />
+    Name:
+    <InputText @bind-Value="currentWarehouse.WarehouseName" />
+    <br />
+    City:
+    <InputText @bind-Value="currentWarehouse.Address.City" />
+    <br />
+    Country:
+    <InputSelect Value="@currentWarehouse.Address.Country"
+                 ValueChanged="@((string s) => ValidateCountry(s))"
+                 ValueExpression="@(() => currentWarehouse.Address.Country)">
+        <option value="NoOption">Pick a country</option>
+        <option value="Canada">Canada</option>
+        <option value="Sweden">Sweden</option>
+        <option value="UK">UK</option>
+        <option value="US">US</option>
+    </InputSelect>
+    <br />
+    Can accept international Shipments:
+    <InputCheckbox @bind-Value="currentWarehouse.International" />
+    <br />
+    <button type="reset">Add New</button>
+    <button type="submit">Update Warehouse</button>
+</EditForm>
+<br />
+<a href="/">Return to Products Management</a>
+@msg
+
+@code {
+    [CascadingParameter]
+    public Task<AuthenticationState> authstate { get; set; }
+
+    System.Security.Claims.ClaimsPrincipal cp;
+
+    private string msg;
+
+    private void ValidateCountry(string countryName)
+    {
+        if (countryName == "NoOption")
+        {
+            msg = "Please pick a country";
+            return;
+        };
+        currentWarehouse.Address.Country = countryName;
+    }
+
+    private EditContext econtext;
+    private void UpdateWarehouse()
+    {
+        if (cp.Identity.Name != "Jean Irvine")
+        {
+            msg = "You aren't allowed to do updates";
+            return;
+        }
+
+        if(!econtext.Validate())
+        {
+            return;
+        }
+
+        msg = "Warehouse updated";
+    }
+
+    [Parameter]
+    public string wid { get; set; }
+
+    private Warehouse currentWarehouse { get; set; }
+
+    protected async override Task OnParametersSetAsync()
+    {
+        cp = (await authstate).User;
+        currentWarehouse = await WarehouseRepo.GetWarehouseByIdAync(int.Parse(wid));
+        await base.OnParametersSetAsync();
+    }
+}

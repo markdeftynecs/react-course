@@ -1,0 +1,47 @@
+﻿@attribute [Authorize(Roles = "ProdManage")]
+
+@inject IJSRuntime jsr
+@inherits Models.ProductsModel
+@page "/"
+@using ProductManagement.Common
+@using ProductManagement.Repository
+
+<h3>Products</h3>
+Id: @prod.ProductId
+<br />
+Product Name:
+<input @bind="prod.ProductName" />
+<br />
+Last Delivery:
+<input @bind-value="prod.LastDelivery"
+       @bind-value:format="MMM-dd"  />
+<br />
+Total Quantity on Hand: @prod.TotalQuantity
+<br />
+<input type="button" @onclick="UpdateLastDelivery" value="Set Delivery Date" />
+<br />
+@msg
+<br />
+<CascadingValue Value=this>
+    <Warehouses></Warehouses>
+</CascadingValue>
+
+
+@code {
+
+    [JSInvokable]
+    public async Task ChangeProduct(string prdId)
+    {
+        base.prod = await ProductRepo.GetProductByIdAsync(int.Parse(prdId));
+        StateHasChanged();
+    }
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await jsr.InvokeVoidAsync("AcceptReference", DotNetObjectReference.Create(this));
+        }
+        await base.OnAfterRenderAsync(firstRender);
+    }
+}

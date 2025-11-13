@@ -1,0 +1,28 @@
+﻿@inherits LayoutComponentBase
+@using ProductManagement.Components
+<header>
+    <h1><img src="/favicon.ico" /> Products Management</h1>
+</header>
+<div>
+    @Body
+</div>
+<br />
+<footer>
+    <Contact T=Common.SiteInfo si="@sInfo" Context="SiteData">
+        <siFormat>
+            @SiteData.SiteName <br />
+            <blockquote>
+                Head of Product Management: @SiteData.ContactName <br />
+                Product Management Email: @SiteData.ContactEmail
+            </blockquote>
+        </siFormat>
+    </Contact>
+</footer>
+@code {
+    private Common.SiteInfo sInfo;
+    protected async override Task OnInitializedAsync()
+    {
+        sInfo = await Repository.SiteInfoRepo.GetSiteInfoAsync(Common.Site.ProductManagement);
+        await base.OnParametersSetAsync();
+    }
+}
