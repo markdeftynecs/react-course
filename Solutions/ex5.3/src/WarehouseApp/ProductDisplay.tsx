@@ -1,0 +1,45 @@
+import {Product, Warehouse} from './WarehouseTypes';
+import {DummyWarehouse} from './DummyInventory';
+import WarehouseDisplay, {WarehouseDisplayProps} from './WarehouseDisplay';
+import { useEffect } from 'react';
+  
+const ProductDisplay = ({product, onRemove }:ProductDisplayProps):JSX.Element => {
+
+  useEffect( () => {
+    document.title = 'Product: ' + product.productName;    
+   }, [product.productName]);
+
+  let qoH:number = 0;
+  let wProps: WarehouseDisplayProps = {warehouse: DummyWarehouse};
+  
+  return (<>
+              <h3>Product: {product.productName}</h3>
+              <label className="text-secondary">Id:</label> {product.productId}
+              <br/>
+              <label className="text-secondary">Last Delivery:</label> {product.lastDelivery?.toString()}
+              <br/>
+              <h4>Warehouses</h4>
+              {
+                product.warehouses.map((w:Warehouse) => {
+                  qoH += w.qoh;
+                  wProps.warehouse = w;                
+                  return ( <WarehouseDisplay {...wProps}/>  );
+                })
+              }  
+             <label className="text-secondary">Total Quantity on Hand:&nbsp;</label>{qoH}
+             <br />
+             <button onClick={() => onRemove(product.productId)}>
+                <img src='deleteButton.png'
+                        alt='Delete Product Button' />
+                Delete {product.productName}
+             </button>
+            </>
+         );
+}
+
+export type ProductDisplayProps = {
+  product:Product,
+  onRemove: (id:number) => void;
+}
+
+export default ProductDisplay;
