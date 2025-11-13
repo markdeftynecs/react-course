@@ -1,9 +1,12 @@
 import  axios, { AxiosResponse, AxiosInstance }  from 'axios';
 import {Product} from '../WarehouseTypes';
+import configData from '../Warehouse.config.json';
+
 
 const customAxios: AxiosInstance = axios.create(
 {    
-   baseURL: 'http://localhost/WarehouseTree/ProductManagement/'    
+   //baseURL: 'http://localhost/WarehouseTree/ProductManagement/'    
+   baseURL: configData.services.server_url
 });
 
 export const deleteProduct = async (prodId:number):Promise<void> => {

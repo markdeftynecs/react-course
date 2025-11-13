@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "dependencies": {
-    "@reduxjs/toolkit": "^2.9.2",
+    "@reduxjs/toolkit": "^2.10.1",
     "@types/jest": "^26.0.24",
     "@types/node": "^20.14.8",
     "@types/react": "^18.0.9",

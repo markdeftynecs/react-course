@@ -9,6 +9,7 @@
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.5",
     "@vitejs/plugin-react-swc": "^3.7.0",
+    "axios": "^1.13.2",
     "cheerio": "^1.0.0-rc.10",
     "enzyme": "^3.11.0",
     "node": "^25.1.0",

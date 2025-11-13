@@ -1,15 +1,15 @@
-import axios, { AxiosResponse, AxiosInstance } from 'axios';
-import { Product } from '../WarehouseTypes';
+import { Warehouse } from '../WarehouseTypes';
+import axios, { AxiosInstance, AxiosResponse } from 'axios';
 
 const customAxios: AxiosInstance = axios.create(
     {
         baseURL: 'http://localhost/WarehouseTree/ProductManagement/'
     });
 
-export const getProducts = async (): Promise<Product[]> => {
+export const getWarehouses = async (): Promise<Warehouse[]> => {
     try {
-        const response: AxiosResponse<Product[]> =
-            await customAxios.get<Product[]>('products/');
+        const response: AxiosResponse<Warehouse[]> =
+            await customAxios.get<Warehouse[]>('warehouses/');
         return response.data;
     }
     catch (err: any) {
@@ -24,10 +24,11 @@ export const getProducts = async (): Promise<Product[]> => {
     }
 }
 
-export const deleteProduct = async (prodId: number): Promise<void> => {
+export const updateWarehouse = async (warehouseToChange: Warehouse): Promise<void> => {
     try {
-        const response: AxiosResponse = await customAxios.delete(
-            'products/' + prodId.toString());
+        let response: AxiosResponse = await
+            customAxios.put('warehouses/' +
+                warehouseToChange.warehouseId, warehouseToChange);
     }
     catch (err: any) {
         if (err.response) {
@@ -35,11 +36,10 @@ export const deleteProduct = async (prodId: number): Promise<void> => {
                 err.response.data);
         }
         else if (err.request) {
-            throw new Error(
-                "No response from server");
+            throw new Error("No response from server");
         }
         else { throw new Error(err.message); }
     }
-}
+};
 
 

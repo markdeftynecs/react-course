@@ -4,6 +4,7 @@
   "type": "module",
   "private": true,
   "dependencies": {
+    "@reduxjs/toolkit": "^2.10.1",
     "@types/node": "^20.14.8",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.5",
@@ -15,6 +16,7 @@
     "node": "^25.1.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-redux": "^9.2.0",
     "react-router-dom": "^7.9.5",
     "typescript": "^4.4.4",
     "vite": "^7.1.12",

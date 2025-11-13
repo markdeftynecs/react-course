@@ -5,8 +5,26 @@ import ProductDisplay,{ProductDisplayProps} from './ProductDisplay';
 
 const ProductWarehouse = ():JSX.Element => {  
       
-    const [selectedProps, setSelectedProps] = 
-                 useState<ProductDisplayProps>({product: DummyProduct});  
+  const delProduct = (Id:number):void => {
+    let index = Products.findIndex(p => Id === p.productId);
+    Products.splice(index, 1);
+    setSelectedProps( {product: DummyProduct,
+
+                       onRemove: () => {} });
+ };
+
+
+    //const [selectedProps, setSelectedProps] = 
+    //             useState<ProductDisplayProps>({product: DummyProduct});  
+const [selectedProps, setSelectedProps] = 
+       useState<ProductDisplayProps>(
+
+           {product: DummyProduct,
+
+            onRemove: delProduct}
+
+       );  
+
 
     let showProduct = (e:React.ChangeEvent<HTMLSelectElement>) => {
       if (e.target.value !== 'n/a')
@@ -14,7 +32,10 @@ const ProductWarehouse = ():JSX.Element => {
           let index:number = Products.findIndex(p => p.productId.toString() === e.target.value);
           if (index !== -1)
           {
-            setSelectedProps({product:Products[index]});
+           // setSelectedProps({product:Products[index]});
+          setSelectedProps({product:Products[index],
+                    onRemove: delProduct});
+          
           }
         }
       }  

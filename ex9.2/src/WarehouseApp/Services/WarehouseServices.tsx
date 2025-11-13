@@ -1,9 +1,11 @@
 import { Warehouse } from '../WarehouseTypes';
 import  axios, { AxiosInstance, AxiosResponse }  from 'axios';
+import configData from '../Warehouse.config.json';
 
 const customAxios: AxiosInstance = axios.create(
 {    
-    baseURL: 'http://localhost/WarehouseTree/ProductManagement/'    
+    //baseURL: 'http://localhost/WarehouseTree/ProductManagement/'  
+    baseURL: configData.services.server_url 
 });
 
 export const getWarehouses = async ():Promise<Warehouse[]> => {
